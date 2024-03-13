@@ -34,7 +34,17 @@ function shallowCopy(obj) {
  *    mergeObjects([]) => {}
  */
 function mergeObjects(objects) {
- 
+  const result = {};
+  objects.forEach((object) => {
+    Object.entries(object).forEach(([key, value]) => {
+      if (result[key]) {
+        result[key] += value;
+      } else {
+        result[key] = value;
+      }
+    });
+  });
+  return result;
 }
 
 /**
