@@ -133,8 +133,20 @@ function makeImmutable(obj) {
  *    makeWord({ a: [0, 1], b: [2, 3], c: [4, 5] }) => 'aabbcc'
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
-function makeWord(/* lettersObject */) {
-  throw new Error('Not implemented');
+function makeWord(lettersObject) {
+  const positionsObject = {};
+  const keys = Object.keys(lettersObject);
+  const values = Object.values(lettersObject);
+  for (let i = 0; i < values.length; i += 1) {
+    values[i].forEach((pos) => {
+      positionsObject[pos] = keys[i];
+    });
+  }
+  let result = '';
+  for (let i = 0; i < Object.keys(positionsObject).length; i += 1) {
+    result += positionsObject[i];
+  }
+  return result;
 }
 
 /**
@@ -151,8 +163,23 @@ function makeWord(/* lettersObject */) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  let cashier = 0;
+  let change = 0;
+  for (let i = 0; i < queue.length; i += 1) {
+    if (queue[i] === 25) {
+      cashier += queue[i];
+    } else {
+      change = queue[i] - 25;
+      if (cashier >= change) {
+        cashier -= change;
+        change = 0;
+      } else {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 /**
